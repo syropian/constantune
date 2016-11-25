@@ -1,3 +1,4 @@
+import { Promise } from 'es6-promise'
 import {
   SET_CURRENT_TRACK,
   SET_TRACKS,
