@@ -2,6 +2,8 @@
 
 > A loopable SoundCloud playlist builder
 
+![Constantune Screenshot](screenshot.png)
+
 ## Build Setup
 
 ``` bash
