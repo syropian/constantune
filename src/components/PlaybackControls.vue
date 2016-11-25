@@ -4,7 +4,7 @@
     <div class="playback-control playPause fa" :class="{'fa-play': playback.playState == 'PAUSED' || playback.playState == 'IDLE', 'fa-pause': playback.playState == 'PLAYING'}" @click="playTrack"></div>
     <div class="playback-control next fa fa-forward" @click="nextTrack"></div>
     <!-- <div class="playback-control shuffle fa fa-random" :class="{'active': playback.shuffleState == 'ON'}" @click="toggleShuffleState"></div> -->
-    <div class="playback-control repeat fa fa-repeat" :class="'repeat-' + playback.repeatState.toLowerCase()" @click="setRepeatState"></div>
+    <div class="playback-control repeat fa fa-refresh" :class="'repeat-' + playback.repeatState.toLowerCase()" @click="setRepeatState"></div>
     <progress :max="currentTrackDuration" :value="playback.progress" @click="seek" class="track-progress"></progress>
   </div>
 </template>
@@ -85,7 +85,8 @@ $pink: #DD2476;
           display: flex; justify-content: center; align-items: center;
           font-size: 7px;
           font-weight: bold;
-          position: absolute; top: 0; left: -5px;
+          position: absolute; top: 0; right: -5px;
+          text-indent: 0.5px;
         }
       }
     }
