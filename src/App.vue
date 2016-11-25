@@ -20,7 +20,7 @@
       <div class="footer-links">
         <div class="footer-author">A project by <a href="http://syropia.net" target="_blank" rel="noopener">Syropia</a>.</div>
         <a href="#">About</a>
-        <a href="#">GitHub</a>
+        <a href="https://github.com/syropian/constantune" target="_blank" rel="noopener">GitHub</a>
       </div>
     </div>
   </div>

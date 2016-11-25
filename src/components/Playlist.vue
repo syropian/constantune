@@ -1,18 +1,35 @@
 <template>
-  <ul class="playlist">
-    <audio-track v-for="track in tracks" :track="track" :playstate="playback.playState" @click.native="playTrack(track)" :key="track.id"></track>
+  <ul class="playlist" ref="playlist" @keydown.prevent>
+    <audio-track v-for="track in tracks" :track="track" :playstate="playback.playState" @click.native="playTrack(track)" :key="track.id"></audio-track>
   </ul>
 </template>
 <script>
   import { mapGetters, mapState, mapActions } from 'vuex'
   import PlaybackMixin from './../mixins/PlaybackMixin'
   import AudioTrack from './AudioTrack'
-  // import sortable from './../directives/sortable'
+  import ls from 'local-storage'
+  import Sortable from 'sortablejs'
 
   export default {
     name: 'Playlist',
     props: ['tracks'],
     mixins: [PlaybackMixin],
+    mounted () {
+      Sortable.create(this.$refs.playlist, {
+        animation: 150,
+        delay: 150,
+        onUpdate: ({oldIndex, newIndex}) => {
+          const from = oldIndex
+          const to = newIndex
+          this.tracks.splice(to, 0, this.tracks.splice(from, 1)[0])
+          setTimeout(() => {
+            this.setTracks(this.tracks).then(() => {
+              ls('tracks', this.tracks)
+            })
+          }, 0)
+        }
+      })
+    },
     computed: {
       ...mapState([
         'playback'
@@ -25,6 +42,7 @@
     methods: {
       ...mapActions([
         'setCurrentTrack',
+        'setTracks',
         'setPlayState',
         'setTrackProgress'
       ])

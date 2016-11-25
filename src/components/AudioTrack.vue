@@ -43,6 +43,7 @@ $pink: #DD2476;
   .track-state {
     margin-right: 10px;
   }
+  .track-name { pointer-events: none;}
   .remove-track {
     width: 20px; height: 20px;
     color: #999;
