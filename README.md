@@ -10,7 +10,7 @@
 # install dependencies
 npm install
 
-// or
+# or
 
 yarn
 
