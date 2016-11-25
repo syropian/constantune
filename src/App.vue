@@ -69,7 +69,7 @@ export default {
     }
   },
   mounted () {
-    this.setPlayer(new SoundCloudAudio('781f5b35a83b232906c2f9f28164d5a5'))
+    this.setPlayer(new SoundCloudAudio(window.SOUNDCLOUD_API_KEY))
     if (ls('tracks')) {
       this.addTrack(ls('tracks'))
     }

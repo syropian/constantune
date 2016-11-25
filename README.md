@@ -6,6 +6,8 @@
 
 ## Build Setup
 
+**Note:** If you're going to build this yourself, please use your own [SoundCloud API key](https://developers.soundcloud.com/). You set the existing key to your own in line 7 of `src/main.js`. Thanks!
+
 ``` bash
 # install dependencies
 npm install

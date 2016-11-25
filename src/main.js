@@ -4,6 +4,8 @@ import Vue from 'vue'
 import App from './App'
 import store from './store'
 
+window.SOUNDCLOUD_API_KEY = '781f5b35a83b232906c2f9f28164d5a5'
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
