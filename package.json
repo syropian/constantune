@@ -2,7 +2,11 @@
   "name": "constantune",
   "version": "1.0.0",
   "description": "A loopable SoundCloud playlist builder",
-  "author": "syropian <collinpatrickhenderson@gmail.com>",
+  "author": {
+    "name": "Collin Henderson",
+    "email": "collin@syropia.net",
+    "url": "http://syropia.net"
+  },
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
