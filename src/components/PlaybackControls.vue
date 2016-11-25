@@ -94,20 +94,31 @@ $pink: #DD2476;
   .track-progress {
     appearance: none;
     background: rgba(#fff, 0);
-    border: 1px solid $pink;
-    border-radius: 15px;
+    background: linear-gradient(to right, $pink , $orange);
+    border-radius: 9999px;
     cursor: pointer;
     margin-left: 10px;
     width: 100%; height: 15px;
     overflow: hidden;
+    position: relative;
+    &:after {
+      border-radius: 9999px;
+      content: "";
+      height: 13px;
+      background: #fff;
+      z-index: 1;
+      position: absolute; top: 1px; left: 1px; right: 1px;
+    }
     &::-webkit-progress-bar {
       background: rgba(#fff, 0);
+      position: relative;
+      z-index: 2;
     }
     &::-moz-progress-bar {
-      background: linear-gradient(to left, $orange , $pink);
+      background: linear-gradient(to right, $pink , $orange);
     }
     &::-webkit-progress-value {
-      background: linear-gradient(to left, $orange , $pink);
+      background: linear-gradient(to right, $pink , $orange);
     }
   }
 }

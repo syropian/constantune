@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <!-- <visualizer></visualizer> -->
     <div class="logo"><img src="static/images/logo.svg" alt="Constatune"></div>
     <div class="main">
       <div class="header-bar">
@@ -32,6 +33,7 @@ import ls from 'local-storage'
 import { mapState, mapActions, mapGetters } from 'vuex'
 import PlaybackControls from './components/PlaybackControls'
 import Playlist from './components/Playlist'
+import Visualizer from './components/Visualizer'
 
 export default {
   data () {
@@ -76,7 +78,8 @@ export default {
   },
   components: {
     PlaybackControls,
-    Playlist
+    Playlist,
+    Visualizer
   }
 }
 </script>
