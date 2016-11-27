@@ -11,7 +11,7 @@ const state = {
   player: null,
   progress: 0,
   playState: 'IDLE',
-  repeatState: 'OFF',
+  repeatState: 'ON',
   shuffleState: 'OFF',
   volume: 50
 }
