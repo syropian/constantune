@@ -5,11 +5,11 @@
     <div class="main">
       <div class="header-bar">
         <form @submit.prevent="addNewTrackFromUrl" class="addTrackForm">
-          <input type="text" v-model="url" @keyup.stop placeholder="SoundCloud URL" />
+          <input type="text" v-model="url" @keyup.stop placeholder="Enter a SoundCloud Track or Playlist URL" />
         </form>
         <!-- <button class="settings-button"><i class="fa fa-cog"></i></button> -->
       </div>
-      <div class="playback-controls-container">
+      <div class="playback-controls-container" v-if="tracks.length">
         <playback-controls></playback-controls>
       </div>
       <div class="playlist-container">
