@@ -2,7 +2,8 @@ import { Promise } from 'es6-promise'
 import {
   SET_CURRENT_TRACK,
   SET_TRACKS,
-  ADD_TRACK
+  ADD_TRACK,
+  REMOVE_TRACK
 } from '../mutation-types'
 import { shuffle, isArray } from 'lodash'
 
@@ -20,6 +21,12 @@ const actions = {
   addTrack ({ commit }, track) {
     return new Promise((resolve, reject) => {
       commit(ADD_TRACK, track)
+      resolve()
+    })
+  },
+  removeTrack ({ commit }, index) {
+    return new Promise((resolve, reject) => {
+      commit(REMOVE_TRACK, index)
       resolve()
     })
   },
@@ -50,6 +57,9 @@ const mutations = {
     } else {
       state.tracks = state.tracks.concat([track])
     }
+  },
+  [REMOVE_TRACK] (state, index) {
+    state.tracks.splice(index, 1)
   }
 }
 

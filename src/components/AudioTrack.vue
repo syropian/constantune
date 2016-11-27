@@ -7,20 +7,40 @@
       <i class="fa" :class="{'fa-play': playstate == 'PAUSED', 'fa-pause': playstate == 'PLAYING'}"></i>
     </div>
     <div class="track-name">{{ track.title }}</div>
-    <!-- <div class="remove-track">&times;</div> -->
+    <div class="remove-track" @click.stop="doRemoveTrack(index)">&times;</div>
   </li>
 </template>
 <script>
-  import { mapGetters } from 'vuex'
+  import ls from 'local-storage'
+  import { mapGetters, mapActions } from 'vuex'
   export default {
     name: 'audio-track',
-    props: ['track', 'playstate'],
+    props: ['track', 'playstate', 'index'],
     computed: {
       ...mapGetters([
-        'currentTrack'
+        'currentTrack',
+        'tracks',
+        'player'
       ]),
       isCurrentTrack () {
         return this.track.id === this.currentTrack.id
+      }
+    },
+    methods: {
+      ...mapActions([
+        'setCurrentTrack',
+        'removeTrack',
+        'setPlayState'
+      ]),
+      doRemoveTrack (index) {
+        if (this.tracks[index].id === this.currentTrack.id) {
+          this.player.stop()
+          this.setPlayState('IDLE')
+          this.setCurrentTrack({})
+        }
+        this.removeTrack(index).then(() => {
+          ls('tracks', this.tracks)
+        })
       }
     }
   }
@@ -39,6 +59,7 @@ $red: #ec213a;
   &:last-child { border-bottom: none; }
   &:hover {
     color: $pink;
+    .remove-track { opacity: 1; }
   }
   &.active {
     color: $orange;
@@ -49,10 +70,12 @@ $red: #ec213a;
   }
   .track-name { pointer-events: none;}
   .remove-track {
+    transition: opacity 250ms ease;
     width: 20px; height: 20px;
     color: #999;
     cursor: pointer;
     margin-left: auto;
+    opacity: 0;
     position: relative; left: 4px;
     &:hover {
       color: $red;

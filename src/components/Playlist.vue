@@ -1,6 +1,6 @@
 <template>
   <ul class="playlist" ref="playlist" @keydown.prevent>
-    <audio-track v-for="track in tracks" :track="track" :playstate="playback.playState" @click.native="playTrack(track)" :key="track.id"></audio-track>
+    <audio-track v-for="(track, index) in tracks" :track="track" :playstate="playback.playState" @click.native="playTrack(track)" :key="track.id" :index="index"></audio-track>
   </ul>
 </template>
 <script>
