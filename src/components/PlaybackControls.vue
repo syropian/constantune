@@ -1,7 +1,7 @@
 <template>
   <div class="playback-controls">
     <div class="playback-control prev fa fa-backward" @click="prevTrack"></div>
-    <div class="playback-control playPause fa" :class="{'fa-play': playback.playState == 'PAUSED' || playback.playState == 'IDLE', 'fa-pause': playback.playState == 'PLAYING'}" @click="playTrack"></div>
+    <div class="playback-control playPause fa" :class="{'fa-play': playback.playState == 'PAUSED' || playback.playState == 'IDLE', 'fa-pause': playback.playState == 'PLAYING'}" @click="doPlayTrack"></div>
     <div class="playback-control next fa fa-forward" @click="nextTrack"></div>
     <!-- <div class="playback-control shuffle fa fa-random" :class="{'active': playback.shuffleState == 'ON'}" @click="toggleShuffleState"></div> -->
     <div class="playback-control repeat fa fa-refresh" :class="'repeat-' + playback.repeatState.toLowerCase()" @click="setRepeatState"></div>
@@ -32,9 +32,10 @@ export default {
       'setPlayState',
       'setCurrentTrack',
       'setShuffleState',
-      'setRepeatState'
+      'setRepeatState',
+      'setTrackProgress'
     ]),
-    playTrack () {
+    doPlayTrack () {
       if (this.playback.playState === 'IDLE') {
         this.playTrackAtIndex(0)
       } else if (this.playback.playState === 'PLAYING') {
@@ -110,6 +111,7 @@ $pink: #DD2476;
       position: absolute; top: 1px; left: 1px; right: 1px;
     }
     &::-webkit-progress-bar {
+      border-radius: 9999px;
       background: rgba(#fff, 0);
       position: relative;
       z-index: 2;

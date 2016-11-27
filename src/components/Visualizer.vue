@@ -1,14 +1,18 @@
 <template>
-  <canvas ref="visualizer" class="visualizer" width="1200" height="800"></canvas>
+  <div class="lines">
+    <div v-for="(byte, index) in streamData" class="line" :style="{ height: byte + 'px' }"></div>
+  </div>
 </template>
 <script>
   import { mapGetters } from 'vuex'
   export default {
+    props: ['binCount', 'smoothing'],
     data () {
       return {
-        streamData: null,
         playerHasBeenInit: false,
-        volume: 0
+        analyserNode: null,
+        frequencyByteData: new Uint8Array(this.binCount),
+        streamData: []
       }
     },
     computed: {
@@ -25,57 +29,41 @@
         }, 0)
       }
     },
-    mounted () {
-      this.initCanvas()
-    },
     methods: {
       initAudioAnalyser () {
-        this.streamData = new Uint8Array(128)
-        const audioCtx = new window.AudioContext()
-        const analyser = audioCtx.createAnalyser()
-        const source = audioCtx.createMediaElementSource(this.player.audio)
-        analyser.fftSize = 256
-        source.connect(analyser)
-        analyser.connect(audioCtx.destination)
-        this.sampleAudioStream(analyser)
-        // setInterval(sampleAudioStream, 20)
-        setInterval(() => { this.sampleAudioStream(analyser) }, 20)
+        const context = new (window.AudioContext || window.webkitAudioContext)()
+        const source = context.createMediaElementSource(this.player.audio)
+        this.analyserNode = context.createAnalyser()
+        this.analyserNode.fftSize = this.binCount * 2
+        this.analyserNode.smoothingTimeConstant = this.smoothing
+        source.connect(this.analyserNode)
+        this.analyserNode.connect(context.destination)
+
+        this.initDataStream()
       },
-      sampleAudioStream (analyser) {
-        analyser.getByteFrequencyData(this.streamData)
-        let total = 0
-        for (let i = 0; i < 80; i++) {
-          total += this.streamData[i]
-        }
-        this.volume = total
+      updateSample () {
+        this.analyserNode.getByteFrequencyData(this.frequencyByteData)
+        this.streamData = Array.from(this.frequencyByteData)
       },
-      initCanvas () {
-        const canvas = this.$refs.visualizer
-        canvas.width = window.innerWidth
-        canvas.height = window.innerHeight
-        const ctx = canvas.getContext('2d')
-        this.drawCircle(ctx)
-      },
-      drawCircle (ctx) {
-        let angle = this.volume / 8000
-        const requestAnimationFrame = window.requestAnimationFrame ||
-                            window.mozRequestAnimationFrame ||
-                            window.webkitRequestAnimationFrame ||
-                            window.msRequestAnimationFrame
-        ctx.clearRect(0, 0, this.$refs.visualizer.clientWidth, this.$refs.visualizer.clientHeight)
-        ctx.beginPath()
-        let radius = 5 / Math.abs(Math.cos(angle))
-        ctx.arc(225, 225, Math.min(radius, 100), 0, Math.PI * 2, false)
-        ctx.closePath()
-        ctx.fillStyle = 'rgba(255,255,255,0.2)'
-        ctx.fill()
-        requestAnimationFrame(this.drawCircle.bind(null, ctx))
+      initDataStream () {
+        this.updateSample()
+        window.requestAnimationFrame(this.initDataStream)
       }
     }
   }
 </script>
 <style lang="scss">
-.visualizer {
+.lines {
+  display: flex;
+  justify-content: center; align-items: flex-end;
+  width: 100vw; height: 100vh;
   position: absolute; top: 0; left: 0; z-index: -1;
+  pointer-events: none;
+  .line {
+    flex-shrink: 0;
+    width: 6px;
+    margin: 0 3px;
+    background: rgba(#fff, 0.2);
+  }
 }
 </style>

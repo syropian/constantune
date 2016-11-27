@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <!-- <visualizer></visualizer> -->
+    <visualizer :bin-count="128" :smoothing="0.80"></visualizer>
     <div class="logo"><img src="static/images/logo.svg" alt="Constatune"></div>
     <div class="main">
       <div class="header-bar">
