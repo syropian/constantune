@@ -1,5 +1,8 @@
 <template>
-  <li class="track" :class="{'active': isCurrentTrack}">
+  <li class="track" :class="{'active': isCurrentTrack, 'not-streamable': !track.streamable}">
+    <div class="track-state" v-if="!track.streamable" title="This track is not streamable">
+      <i class="fa fa-warning"></i>
+    </div>
     <div class="track-state" v-if="isCurrentTrack">
       <i class="fa" :class="{'fa-play': playstate == 'PAUSED', 'fa-pause': playstate == 'PLAYING'}"></i>
     </div>
@@ -25,9 +28,9 @@
 <style lang="scss">
 $orange: #FF512F;
 $pink: #DD2476;
+$red: #ec213a;
 
 .track {
-  transition: all 250ms ease;
   border-bottom: 1px solid #eee;
   color: #999;
   cursor: pointer;
@@ -42,6 +45,7 @@ $pink: #DD2476;
   }
   .track-state {
     margin-right: 10px;
+    position: relative;
   }
   .track-name { pointer-events: none;}
   .remove-track {
@@ -51,7 +55,16 @@ $pink: #DD2476;
     margin-left: auto;
     position: relative; left: 4px;
     &:hover {
-      color: #ec213a;
+      color: $red;
+    }
+  }
+  &.not-streamable {
+    .track-name {
+      color: $red;
+      text-decoration: line-through;
+    }
+    .track-state {
+      color: $red;
     }
   }
 }

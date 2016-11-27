@@ -4,7 +4,7 @@ import {
   SET_TRACKS,
   ADD_TRACK
 } from '../mutation-types'
-import { isArray } from 'lodash'
+import { shuffle, isArray } from 'lodash'
 
 const state = {
   currentTrack: {},
@@ -17,7 +17,7 @@ const getters = {
 }
 
 const actions = {
-  addTrack ({ commit, state }, track) {
+  addTrack ({ commit }, track) {
     return new Promise((resolve, reject) => {
       commit(ADD_TRACK, track)
       resolve()
@@ -31,6 +31,9 @@ const actions = {
   },
   setCurrentTrack ({ commit }, track) {
     commit(SET_CURRENT_TRACK, track)
+  },
+  shuffleTracks ({ commit, state }) {
+    commit(SET_TRACKS, shuffle(state.tracks))
   }
 }
 

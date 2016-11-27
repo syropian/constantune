@@ -20,6 +20,9 @@ export default {
         case 82:
           this.setRepeatState()
           break
+        case 83:
+          this.shuffleTracks()
+          break
       }
     }, false)
   }

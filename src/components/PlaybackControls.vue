@@ -33,7 +33,8 @@ export default {
       'setCurrentTrack',
       'setShuffleState',
       'setRepeatState',
-      'setTrackProgress'
+      'setTrackProgress',
+      'shuffleTracks'
     ]),
     doPlayTrack () {
       if (this.playback.playState === 'IDLE') {

@@ -13,6 +13,15 @@
         <playback-controls></playback-controls>
       </div>
       <div class="playlist-container">
+        <div class="track-errors" v-if="badTracks.length">
+          <div class="track-errors-hide" @click="badTracks = []">&times;</div>
+          <div class="track-errors-message">
+            <p>The following tracks were unable to be added because they are not streamable:</p>
+            <ul>
+              <li v-for="track in badTracks">{{ track }}</li>
+            </ul>
+          </div>
+        </div>
         <playlist :tracks="tracks"></playlist>
       </div>
     </div>
@@ -36,9 +45,11 @@ import Playlist from './components/Playlist'
 import Visualizer from './components/Visualizer'
 
 export default {
+  name: 'App',
   data () {
     return {
-      url: ''
+      url: '',
+      badTracks: []
     }
   },
   computed: {
@@ -56,15 +67,22 @@ export default {
       'setPlayer'
     ]),
     addNewTrackFromUrl () {
+      this.badTracks = []
       this.player.resolve(this.url, (res) => {
         if (res.hasOwnProperty('tracks')) {
-          this.addTrack(res.tracks).then(() => {
+          const goodTracks = res.tracks.filter(track => track.streamable)
+          this.badTracks = res.tracks.filter(track => !track.streamable).map(track => track.title)
+          this.addTrack(goodTracks).then(() => {
             ls('tracks', this.tracks)
           })
         } else {
-          this.addTrack(res).then(() => {
-            ls('tracks', this.tracks)
-          })
+          if (res.streamable) {
+            this.addTrack(res).then(() => {
+              ls('tracks', this.tracks)
+            })
+          } else {
+            this.badTracks.push(res.title)
+          }
         }
         this.url = ''
       })
@@ -87,6 +105,7 @@ export default {
 <style lang="scss">
 $orange: #FF512F;
 $pink: #DD2476;
+$red: #ec213a;
 
 *, *::before, *::after {
   box-sizing: border-box;
@@ -144,6 +163,24 @@ body {
     outline: none;
     padding-right: 0;
     &:hover { color: $orange; }
+  }
+}
+.track-errors {
+  background: $red;
+  color: #fff;
+  font-size: 0.8rem;
+  border-radius: 3px;
+  padding: 15px;
+  position: relative;
+  p {
+    margin-top: 0;
+  }
+  .track-errors-hide {
+    cursor: pointer;
+    position: absolute; top: 5px; right: 10px;
+    font-size: 1.4rem;
+    font-weight: bold;
+    line-height: 1;
   }
 }
 .footer {

@@ -14,6 +14,13 @@ export default {
       return this.playback.playState !== 'IDLE' && track.id !== this.currentTrack.id
     },
     playTrack (track) {
+      if (!track.streamable) {
+        this.player.stop()
+        this.setPlayState('IDLE')
+        this.setCurrentTrack({})
+        window.alert('Sorry, this track is not streamable.')
+        return false
+      }
       if (this.playback.playState === 'IDLE') {
         this.setPlayState('PLAYING')
         this.player.play({streamUrl: track.stream_url})
@@ -66,6 +73,13 @@ export default {
           break
       }
       const nextTrack = this.tracks[nextIndex]
+      if (!nextTrack.streamable) {
+        this.player.stop()
+        this.setPlayState('IDLE')
+        this.setCurrentTrack({})
+        window.alert('Sorry, this track is not streamable.')
+        return false
+      }
       this.player.stop()
       this.setPlayState('PLAYING')
       this.player.play({streamUrl: nextTrack.stream_url})
@@ -95,6 +109,13 @@ export default {
           break
       }
       const prevTrack = this.tracks[prevIndex]
+      if (!prevTrack.streamable) {
+        this.player.stop()
+        this.setPlayState('IDLE')
+        this.setCurrentTrack({})
+        window.alert('Sorry, this track is not streamable.')
+        return false
+      }
       this.player.stop()
       this.setPlayState('PLAYING')
       this.player.play({streamUrl: prevTrack.stream_url})
