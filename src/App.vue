@@ -144,7 +144,7 @@ body {
   // background: rgba(#000, 0.8);
   background: linear-gradient(to left, rgba($orange, 0.8) , rgba($pink, 0.8));
   display: flex; justify-content: center; align-items: flex-end;
-  position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+  position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 999;
   .about-container {
     transition: all 500ms ease;
     background: #fff;
