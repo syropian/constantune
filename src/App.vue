@@ -75,14 +75,10 @@ export default {
         if (res.hasOwnProperty('tracks')) {
           const goodTracks = res.tracks.filter(track => track.streamable)
           this.badTracks = res.tracks.filter(track => !track.streamable).map(track => track.title)
-          this.addTrack(goodTracks).then(() => {
-            ls('tracks', this.tracks)
-          })
+          this.addTrack(goodTracks)
         } else {
           if (res.streamable) {
-            this.addTrack(res).then(() => {
-              ls('tracks', this.tracks)
-            })
+            this.addTrack(res)
           } else {
             this.badTracks.push(res.title)
           }
@@ -93,8 +89,8 @@ export default {
   },
   mounted () {
     this.setPlayer(new SoundCloudAudio(window.SOUNDCLOUD_API_KEY))
-    if (ls('tracks')) {
-      this.addTrack(ls('tracks'))
+    if (ls('constantune').tracks.tracks) {
+      this.addTrack(ls('constantune').tracks.tracks)
     }
   },
   components: {

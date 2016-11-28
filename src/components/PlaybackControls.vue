@@ -3,7 +3,6 @@
     <div class="playback-control prev fa fa-backward" @click="prevTrack"></div>
     <div class="playback-control playPause fa" :class="{'fa-play': playback.playState == 'PAUSED' || playback.playState == 'IDLE', 'fa-pause': playback.playState == 'PLAYING'}" @click="doPlayTrack"></div>
     <div class="playback-control next fa fa-forward" @click="nextTrack"></div>
-    <!-- <div class="playback-control shuffle fa fa-random" :class="{'active': playback.shuffleState == 'ON'}" @click="toggleShuffleState"></div> -->
     <div class="playback-control repeat fa fa-refresh" :class="'repeat-' + playback.repeatState.toLowerCase()" @click="setRepeatState"></div>
     <progress :max="currentTrackDuration" :value="playback.progress" @click="seek" class="track-progress"></progress>
   </div>
@@ -31,7 +30,6 @@ export default {
     ...mapActions([
       'setPlayState',
       'setCurrentTrack',
-      'setShuffleState',
       'setRepeatState',
       'setTrackProgress',
       'shuffleTracks'
@@ -47,13 +45,6 @@ export default {
     },
     seek (e) {
       this.player.seek(e)
-    },
-    toggleShuffleState () {
-      if (this.playback.shuffleState === 'ON') {
-        this.setShuffleState('OFF')
-      } else {
-        this.setShuffleState('ON')
-      }
     }
   }
 }

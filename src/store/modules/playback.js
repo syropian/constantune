@@ -3,7 +3,6 @@ import {
   SET_PROGRESS,
   SET_PLAY_STATE,
   SET_REPEAT_STATE,
-  SET_SHUFFLE_STATE,
   SET_VOLUME
 } from '../mutation-types'
 
@@ -29,9 +28,6 @@ const actions = {
   },
   setTrackProgress ({ commit }, progress) {
     commit(SET_PROGRESS, progress)
-  },
-  setShuffleState ({ commit }, shuffleState) {
-    commit(SET_SHUFFLE_STATE, shuffleState)
   },
   setRepeatState ({ commit, state }) {
     let repeatState
@@ -62,9 +58,6 @@ const mutations = {
   },
   [SET_REPEAT_STATE] (state, repeatState) {
     state.repeatState = repeatState
-  },
-  [SET_SHUFFLE_STATE] (state, shuffleState) {
-    state.shuffleState = shuffleState
   },
   [SET_VOLUME] (state, volume) {
     state.volume = volume
