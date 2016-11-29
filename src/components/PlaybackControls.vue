@@ -4,7 +4,9 @@
     <div class="playback-control playPause fa" :class="{'fa-play': playback.playState == 'PAUSED' || playback.playState == 'IDLE', 'fa-pause': playback.playState == 'PLAYING'}" @click="doPlayTrack"></div>
     <div class="playback-control next fa fa-forward" @click="nextTrack"></div>
     <div class="playback-control repeat fa fa-refresh" :class="'repeat-' + playback.repeatState.toLowerCase()" @click="setRepeatState"></div>
-    <progress :max="currentTrackDuration" :value="playback.progress" @click="seek" class="track-progress"></progress>
+    <div class="track-progress-container">
+      <progress :max="currentTrackDuration" :value="playback.progress" @click="seek" class="track-progress"></progress>
+    </div>
   </div>
 </template>
 <script>
@@ -84,35 +86,37 @@ $pink: #DD2476;
       }
     }
   }
-  .track-progress {
-    appearance: none;
-    background: rgba(#fff, 0);
+  .track-progress-container {
+    display: flex;
     background: linear-gradient(to right, $pink , $orange);
     border-radius: 9999px;
-    cursor: pointer;
+    flex-grow: 1;
     margin-left: 10px;
-    width: 100%; height: 15px;
     overflow: hidden;
-    position: relative;
-    &:after {
-      border-radius: 9999px;
-      content: "";
-      height: 13px;
-      background: #fff;
-      z-index: 1;
-      position: absolute; top: 1px; left: 1px; right: 1px;
-    }
-    &::-webkit-progress-bar {
-      border-radius: 9999px;
+    padding-right: 2px;
+    position: relative; height: 15px;
+    .track-progress {
+      appearance: none;
       background: rgba(#fff, 0);
-      position: relative;
-      z-index: 2;
-    }
-    &::-moz-progress-bar {
-      background: linear-gradient(to right, $pink , $orange);
-    }
-    &::-webkit-progress-value {
-      background: linear-gradient(to right, $pink , $orange);
+      background: #fff;
+      border-radius: 9999px;
+      cursor: pointer;
+      overflow: hidden;
+      height: 13px;
+      position: relative; top: 1px; left: 1px;
+      flex-grow: 1;
+      &::-webkit-progress-bar {
+        border-radius: 9999px;
+        background: rgba(#fff, 0);
+        position: relative;
+        z-index: 2;
+      }
+      &::-moz-progress-bar {
+        background: linear-gradient(to right, $pink , $orange);
+      }
+      &::-webkit-progress-value {
+        background: linear-gradient(to right, $pink , $orange);
+      }
     }
   }
 }
