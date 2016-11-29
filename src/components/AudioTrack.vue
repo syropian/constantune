@@ -11,7 +11,6 @@
   </li>
 </template>
 <script>
-  import ls from 'local-storage'
   import { mapGetters, mapActions } from 'vuex'
   export default {
     name: 'audio-track',
@@ -38,9 +37,7 @@
           this.setPlayState('IDLE')
           this.setCurrentTrack({})
         }
-        this.removeTrack(index).then(() => {
-          ls('tracks', this.tracks)
-        })
+        this.removeTrack(index)
       }
     }
   }

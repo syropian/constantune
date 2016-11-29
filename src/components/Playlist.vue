@@ -7,7 +7,6 @@
   import { mapGetters, mapState, mapActions } from 'vuex'
   import PlaybackMixin from './../mixins/PlaybackMixin'
   import AudioTrack from './AudioTrack'
-  import ls from 'local-storage'
   import Sortable from 'sortablejs'
 
   export default {
@@ -23,9 +22,7 @@
           const to = newIndex
           this.tracks.splice(to, 0, this.tracks.splice(from, 1)[0])
           setTimeout(() => {
-            this.setTracks(this.tracks).then(() => {
-              ls('tracks', this.tracks)
-            })
+            this.setTracks(this.tracks)
           }, 0)
         }
       })
