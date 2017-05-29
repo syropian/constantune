@@ -10,8 +10,8 @@ export default new Vuex.Store({
   plugins: [createPersistedState({
     key: 'constantune',
     paths: [
-      'playback.repeatState',
-      'tracks.tracks'
+      'tracks.tracks',
+      'playback.repeatState'
     ]
   })],
   modules: {

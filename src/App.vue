@@ -39,7 +39,6 @@
 
 <script>
 import SoundCloudAudio from 'soundcloud-audio'
-import ls from 'local-storage'
 import { mapState, mapActions, mapGetters } from 'vuex'
 import AboutPanel from './components/AboutPanel'
 import PlaybackControls from './components/PlaybackControls'
@@ -89,9 +88,6 @@ export default {
   },
   mounted () {
     this.setPlayer(new SoundCloudAudio(window.SOUNDCLOUD_API_KEY))
-    if (ls('constantune').tracks.tracks) {
-      this.addTrack(ls('constantune').tracks.tracks)
-    }
   },
   components: {
     AboutPanel,
