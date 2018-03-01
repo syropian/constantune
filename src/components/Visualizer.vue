@@ -59,6 +59,7 @@
   align-items: flex-end;
   width: 100vw;
   height: 100vh;
+  opacity: 0.2;
   position: absolute;
   top: 0;
   left: 0;
@@ -68,7 +69,7 @@
     flex-shrink: 0;
     width: 6px;
     margin: 0 3px;
-    background: rgba(#fff, 0.2);
+    background: #fff;
   }
 }
 </style>
