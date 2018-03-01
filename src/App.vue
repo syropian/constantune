@@ -19,7 +19,7 @@
           <div class="track-errors-message">
             <p>The following tracks were unable to be added because they are not streamable:</p>
             <ul>
-              <li v-for="track in badTracks">{{ track }}</li>
+              <li v-for="track in badTracks" :key="track.id">{{ track }}</li>
             </ul>
           </div>
         </div>
@@ -99,15 +99,17 @@ export default {
 </script>
 
 <style lang="scss">
-$orange: #FF512F;
-$pink: #DD2476;
+$orange: #ff512f;
+$pink: #dd2476;
 $red: #ec213a;
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 body {
-  background: linear-gradient(to left, $orange , $pink);
+  background: linear-gradient(to left, $orange, $pink);
   font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
   font-size: 16px;
   padding: 20px;
@@ -134,12 +136,13 @@ body {
   margin-bottom: 20px;
   .addTrackForm {
     width: 100%;
-    input[type=text]{
+    input[type="text"] {
       appearance: none;
       border-radius: 0;
       transition: border 250ms ease;
       color: #666;
-      width: 100%; height: 40px;
+      width: 100%;
+      height: 40px;
       border: none;
       border-bottom: 2px solid #eee;
       outline: none;
@@ -158,7 +161,9 @@ body {
     margin-left: 20px;
     outline: none;
     padding-right: 0;
-    &:hover { color: $orange; }
+    &:hover {
+      color: $orange;
+    }
   }
 }
 .track-errors {
@@ -173,7 +178,9 @@ body {
   }
   .track-errors-hide {
     cursor: pointer;
-    position: absolute; top: 5px; right: 10px;
+    position: absolute;
+    top: 5px;
+    right: 10px;
     font-size: 1.4rem;
     font-weight: bold;
     line-height: 1;
@@ -184,7 +191,8 @@ body {
   margin: 20px auto;
   max-width: 800px;
   .footer-links {
-    display: flex; align-items: flex-start;
+    display: flex;
+    align-items: flex-start;
     color: #fff;
     margin-left: auto;
     text-transform: uppercase;
@@ -202,7 +210,9 @@ body {
     }
     .footer-author {
       margin-right: 10px;
-      a { margin-left: 0; }
+      a {
+        margin-left: 0;
+      }
     }
     @media screen and (max-width: 414px) {
       display: none;
@@ -218,16 +228,16 @@ body {
 }
 .sortable-chosen {
   background: #fff;
-  border: 1px solid #eee!important;
+  border: 1px solid #eee !important;
   border-radius: 3px;
   color: #999;
-  padding: 10px!important;
+  padding: 10px !important;
 }
 
 @media screen and (max-width: 414px) {
-  html, body {
+  html,
+  body {
     overflow: hidden;
   }
 }
-
 </style>

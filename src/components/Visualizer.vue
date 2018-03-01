@@ -1,6 +1,6 @@
 <template>
   <div class="lines">
-    <div v-for="(byte, index) in streamData" class="line" :style="{ height: byte + 'px' }"></div>
+    <div v-for="(byte, index) in streamData" class="line" :style="{ height: byte + 'px' }" :key="index"></div>
   </div>
 </template>
 <script>
@@ -55,9 +55,14 @@
 <style lang="scss">
 .lines {
   display: flex;
-  justify-content: center; align-items: flex-end;
-  width: 100vw; height: 100vh;
-  position: absolute; top: 0; left: 0; z-index: -1;
+  justify-content: center;
+  align-items: flex-end;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
   pointer-events: none;
   .line {
     flex-shrink: 0;
